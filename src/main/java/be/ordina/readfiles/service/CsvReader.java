@@ -4,6 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.UncheckedIOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,16 +17,34 @@ import java.util.stream.Collectors;
 public class CsvReader implements FileReader {
 	private static final String SEPARATOR = ",";
 	 
-    private final Reader source;
+    private final String filePath;
  
-    public CsvReader(Reader source) {
-        this.source = source;
+    public CsvReader(String path) {
+        this.filePath = path;
+    }
+    
+    private Reader getSource()  {
+    	Reader reader = null;
+    	try {
+    		URL url = this.getClass().getResource(filePath);
+    		Path path = Paths.get(url.toURI());
+			reader = Files.newBufferedReader(path,
+					Charset.forName("ISO-8859-1"));
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		}
+		
+		return reader;
     }
     
     
     @Override
     public List<String> readHeader() {
-        try (BufferedReader reader = new BufferedReader(source)) {
+        try (BufferedReader reader = new BufferedReader(getSource())) {
             return (List<String>) reader.lines()
                     .findFirst()
                     .map(line -> Arrays.asList(line.split(SEPARATOR)))
@@ -34,7 +58,7 @@ public class CsvReader implements FileReader {
     
     @Override
     public List<List<String>> readRecords() {
-        try (BufferedReader reader = new BufferedReader(source)) {
+        try (BufferedReader reader = new BufferedReader(getSource())) {
             return   reader.lines()
                     .skip(1)
                     .map(line -> Arrays.asList(line.split(createRegex(), -1)))

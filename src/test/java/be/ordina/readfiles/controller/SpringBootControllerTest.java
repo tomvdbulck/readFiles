@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockServletContext;
@@ -16,16 +17,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import be.ordina.readfiles.service.FileReader;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = MockServletContext.class)
 @WebAppConfiguration
 public class SpringBootControllerTest {
 
 	private MockMvc mvc;
-
+	
+	@Mock
+	private FileReader fileReader1;
+	@Mock
+	private FileReader fileReader2;
+	
 	@Before
 	public void setUp() throws Exception {
-		mvc = MockMvcBuilders.standaloneSetup(new SpringBootController()).build();
+		mvc = MockMvcBuilders.standaloneSetup(new SpringBootController(fileReader1, fileReader2)).build();
 	}
 
 	@Test

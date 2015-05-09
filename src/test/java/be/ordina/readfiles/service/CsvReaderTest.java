@@ -1,16 +1,6 @@
 package be.ordina.readfiles.service;
 
-import static org.junit.Assert.*;
-
-import java.io.IOException;
-import java.io.Reader;
-import java.io.UncheckedIOException;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import org.hamcrest.CoreMatchers;
@@ -27,6 +17,7 @@ public class CsvReaderTest {
 	@Test
     public void readsHeaderCsv() throws URISyntaxException {
         List<String> header = csvReader.readHeader();
+        Assert.assertEquals(6, header.size());
         Assert.assertThat(header.toString(), 
         		CoreMatchers.both(CoreMatchers.containsString("Name")).and(CoreMatchers.containsString("Address")));
         Assert.assertThat(header.toString(), 
@@ -52,14 +43,6 @@ public class CsvReaderTest {
  
 	@Before
     public void createCsvReader() throws URISyntaxException {
-        try {
-        	URL url = this.getClass().getResource("/Workbook2.csv");
-        	Path path = Paths.get(url.toURI());
-            Reader reader = Files.newBufferedReader(
-                path, Charset.forName("ISO-8859-1"));
-           csvReader = new CsvReader(reader);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+		csvReader = new CsvReader("/Workbook2.csv");
     }
 }
