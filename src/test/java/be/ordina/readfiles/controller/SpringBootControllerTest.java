@@ -33,7 +33,7 @@ public class SpringBootControllerTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		mvc = MockMvcBuilders.standaloneSetup(new SpringBootController(fileReader1, fileReader2)).build();
+		mvc = MockMvcBuilders.standaloneSetup(new SpringBootController(fileReader1, fileReader2, null)).build();
 	}
 
 	@Test

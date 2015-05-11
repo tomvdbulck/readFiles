@@ -1,7 +1,8 @@
 package be.ordina.readfiles.dto;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class PersonRecord implements Serializable {
 	
@@ -12,16 +13,18 @@ public class PersonRecord implements Serializable {
 	private String name;
 	private String address;
 	private String postCode;
-	private Long credit;
-	private Date date;
+	private String phone;
+	private BigDecimal creditLimit;
+	private LocalDate birthday;
 	
 	
-	public PersonRecord(String name, String address, String postCode, Long credit, Date date) {
+	public PersonRecord(String name, String address, String postCode, String phone, BigDecimal creditLimit, LocalDate date) {
 		this.name = name;
 		this.address = address;
 		this.postCode = postCode;
-		this.credit = credit;
-		this.date = date;
+		this.phone = phone;
+		this.creditLimit = creditLimit;
+		this.birthday = date;
 	}
 	
 	
@@ -34,11 +37,14 @@ public class PersonRecord implements Serializable {
 	public String getPostCode() {
 		return postCode;
 	}
-	public Long getCredit() {
-		return credit;
+	public String getPhone() {
+		return phone;
 	}
-	public Date getDate() {
-		return date;
+	public BigDecimal getCreditLimit() {
+		return creditLimit;
+	}
+	public LocalDate getBirthday() {
+		return birthday;
 	}
 	
 	

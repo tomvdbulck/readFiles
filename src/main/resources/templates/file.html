@@ -1,0 +1,26 @@
+<html xmlns:th="www.thymeleaf.org">
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th th:text="${file.header.nameLabel}">Name</th>
+                    <th th:text="${file.header.addressLabel}">Address</th>
+                    <th th:text="${file.header.postcodeLabel}">Postcode</th>
+                    <th th:text="${file.header.phoneLabel}">Phone</th>
+                    <th th:text="${file.header.creditLimitLabel}">Credit Limit</th>
+                    <th th:text="${file.header.birthdayLabel}">Birthday</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="record : ${file.personRecords}" th:object="${record}">
+                    <td th:text="*{name}"></td>
+                    <td th:text="*{address}"></td>
+                    <td th:text="*{postCode}"></td>
+                    <td th:text="*{phone}"></td>
+                    <td th:text="*{creditLimit}"></td>
+                    <td th:text="*{birthday}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

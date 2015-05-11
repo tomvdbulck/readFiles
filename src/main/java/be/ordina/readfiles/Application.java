@@ -2,17 +2,28 @@ package be.ordina.readfiles;
 
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 import be.ordina.readfiles.service.CsvReader;
 import be.ordina.readfiles.service.FileReader;
 import be.ordina.readfiles.service.PrnReader;
 
 @SpringBootApplication
+@ComponentScan("be.ordina.readfiles")
+@EnableConfigurationProperties
 public class Application {
+
+	@Value("${csv.file.name}")
+	private String csvFile;
+
+	@Value("${prn.file.name}")
+	private String prnFile;
 
 	public static void main(String[] args) {
 		ApplicationContext ctx = SpringApplication.run(Application.class, args);
@@ -28,10 +39,11 @@ public class Application {
 
 	@Bean
 	public FileReader csvReader() {
-		return new CsvReader("/Workbook2.csv");
+		return new CsvReader(csvFile);
 	}
+
 	@Bean
 	public FileReader prnReader() {
-		return new PrnReader("/Workbook2.prn");
+		return new PrnReader(prnFile);
 	}
 }
