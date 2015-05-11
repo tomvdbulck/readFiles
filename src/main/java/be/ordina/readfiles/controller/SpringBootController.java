@@ -66,28 +66,6 @@ public class SpringBootController {
     }
     
     
-	private String printFileContentSimple(List<String> header,
-			List<List<String>> records) {
-		String data = "<div>";
-    	for (String headerField : header) {
-    		data = data + "<span style='padding-left:5px;padding-right:5px;'>" + headerField + "</span>";
-    	}
-    	data = data + "</div>";
-    	
-    	for (List<String> record : records) {
-    		
-    		data = data + "<div>";
-    		for (String recordField : record) {
-    			data = data + "<span style='padding-left:5px;padding-right:5px;'>" + recordField + "</span>";
-    		}
-    		data = data + "</div>";
-    	}
-		return data;
-	}
-    
-    
-    
-    
 
 
     
