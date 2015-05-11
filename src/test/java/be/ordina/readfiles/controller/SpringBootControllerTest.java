@@ -44,6 +44,6 @@ public class SpringBootControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(
 						content()
-								.string(equalTo("Greetings from the read file app")));
+								.string(equalTo("")));
 	}
 }
